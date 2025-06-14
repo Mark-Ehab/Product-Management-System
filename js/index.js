@@ -557,10 +557,14 @@ function validateFormInputField(inputField) {
           "d-none"
         );
       }
-      inputField.nextElementSibling.nextElementSibling.nextElementSibling.classList.replace(
-        "d-block",
-        "d-none"
-      );
+      if (!imageSizeExceeded) {
+        inputField.nextElementSibling.nextElementSibling.nextElementSibling
+          ? inputField.nextElementSibling.nextElementSibling.nextElementSibling.classList.replace(
+              "d-block",
+              "d-none"
+            )
+          : imageSizeExceeded;
+      }
       inputField.nextElementSibling.classList.replace("d-none", "d-block");
     }
     inputField.classList.remove("is-valid");
