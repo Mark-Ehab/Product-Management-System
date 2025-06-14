@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Site Meta Data -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Product Management System is a simple and smart tool that makes it easy to add, update, and manage your products online. Whether you're selling phones, laptops, or accessories, you can quickly enter product details, set prices, choose categories, upload images, and track stock—all in one place. Perfect for small businesses and online stores, it helps you stay organized and saves you time."
+    />
+    <!-- Site Title -->
+    <title>Product Management System</title>
+    <!-- Link Favicon to Site Head -->
+    <link rel="icon" href="./images/icon/Product-Managment-System-Icon.png" />
+    <!-- Link fontawesome External Styles -->
+    <link rel="stylesheet" href="./CSS/all.min.css" />
+    <!-- Link Bootsrtap External Styles -->
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css" />
+    <!-- Link Custom External Styles -->
+    <link rel="stylesheet" href="./CSS/main.css" />
+  </head>
+  <body>
+    <!-- Start of Main Section -->
+    <main class="p-5 position-relative">
+      <!-- Start of Header Section -->
+      <header>
+        <div class="container">
+          <h1 class="text-capitalize text-center">product management system</h1>
+        </div>
+      </header>
+      <!-- End of Header Section -->
+
+      <!-- Start of Product Registration Form Section -->
+      <section id="product-registration-form" class="mt-5">
+        <div class="container">
+          <div class="row gy-4 rounded-4 p-4 m-0">
+            <div class="col-12">
+              <h2 id="add-heading" class="text-capitalize text-center">
+                add new product
+              </h2>
+              <h2
+                id="update-heading"
+                class="text-capitalize text-center d-none"
+              >
+                update product
+              </h2>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  id="productname"
+                  placeholder="Product Name"
+                  class="form-control"
+                  oninput="validateFormInputField(this);validateFormInputFields()"
+                />
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* Product name shall begin with a capital word character and
+                  shall be at least 3 characters</span
+                >
+                <label for="productname">Product Name</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input
+                  type="text"
+                  id="productprice"
+                  placeholder="Product Price"
+                  class="form-control"
+                  oninput="validateFormInputField(this);validateFormInputFields()"
+                />
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* Product price shall be within the range from (6000 EGP to
+                  60000 EGP)</span
+                >
+                <label for="productprice">Product Price</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input
+                  list="categorylist"
+                  type="text"
+                  id="productcategory"
+                  placeholder="Product Category"
+                  class="form-control"
+                  oninput="validateFormInputField(this);validateFormInputFields()"
+                />
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* Product categorey shall be either of the following values
+                  (Phones or Screens or Headphones or Watches)</span
+                >
+                <label for="productcategory">Product Category</label>
+                <datalist id="categorylist">
+                  <option value="Phones"></option>
+                  <option value="Screens"></option>
+                  <option value="Headphones"></option>
+                  <option value="Watches"></option>
+                </datalist>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <input
+                  type="file"
+                  id="productimage"
+                  placeholder="Product Image"
+                  class="form-control"
+                  oninput="validateFormInputField(this);validateFormInputFields()"
+                />
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* Extension of product image uploded shall be either of the
+                  following (.png or .jpg or .jpeg or .svg)</span
+                >
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* An image shall be uploaded</span
+                >
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* Image size shall not exceed 1KB</span
+                >
+                <label for="productimage">Product Image</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-floating">
+                <textarea
+                  id="productdescription"
+                  placeholder="Product Description"
+                  class="form-control"
+                  oninput="validateFormInputField(this);validateFormInputFields()"
+                ></textarea>
+                <span class="text-danger fs-6 mt-2 d-none"
+                  >* Product description shall not exceed 250 characters</span
+                >
+                <label for="productdescription">Product Description</label>
+              </div>
+            </div>
+            <div class="col-12">
+              <button
+                id="add-btn"
+                class="btn btn-add-custom w-100 text-capitalize"
+                onclick="createProduct(); searchForElement(
+        formInputFields.productSearchInputField.value
+      )"
+                disabled
+              >
+                <i class="fa-solid fa-plus pe-2"></i>add product
+              </button>
+              <button
+                id="update-btn"
+                class="btn btn-success w-100 text-capitalize d-none"
+                onclick="updateProduct(); searchForElement(
+        formInputFields.productSearchInputField.value
+      )"
+                disabled
+              >
+                <i class="fa-solid fa-recycle pe-2"></i>update product
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- End of Product Registration Form Section -->
+
+      <!-- Start Product Search Input Field Section-->
+      <section class="mt-5">
+        <div class="container">
+          <div class="form-floating">
+            <input
+              type="text"
+              id="productsearch"
+              placeholder="Search for product"
+              class="form-control"
+              oninput="searchForElement(this.value)"
+            />
+            <label for="productname">Search for Products</label>
+          </div>
+        </div>
+      </section>
+      <!-- End Product Search Input Field Section-->
+
+      <!-- Start of Products Gallery Section -->
+      <section id="product-gallery" class="mt-5">
+        <div class="container">
+          <div class="row gy-4"></div>
+        </div>
+      </section>
+      <!-- End of Products Gallery Section -->
+    </main>
+    <!-- End of Main Section -->
+    <script src="./js/index.js"></script>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

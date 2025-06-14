@@ -1,0 +1,135 @@
+/*------------------------------------- 
+# Custom Styles File for Bookmark App #
+--------------------------------------*/
+
+/*----------------------------------------- 
+# Definition of Fonts Used in Bookmark Site  
+------------------------------------------*/
+@font-face {
+  font-family: "Poppins Bold";
+  src: url("./../webfonts/Poppins-Bold.woff2") format("woff2"),
+    url("./../webfonts/Poppins-Bold.woff") format("woff"),
+    url("./../webfonts/Poppins-Bold.ttf") format("ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Poppins Semi Bold";
+  src: url("./../webfonts/Poppins-SemiBold.woff2") format("woff2"),
+    url("./../webfonts/Poppins-SemiBold.woff") format("woff"),
+    url("./../webfonts/Poppins-SemiBold.ttf") format("ttf");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Bold";
+  src: url("./../webfonts/Inter-Bold.woff2") format("woff2"),
+    url("./../webfonts/Inter-Bold.woff") format("woff"),
+    url("./../webfonts/Inter-Bold.ttf") format("ttf");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Inter Regular";
+  src: url("./../webfonts/Inter-Regular.woff2") format("woff2"),
+    url("./../webfonts/Inter-Regular.woff") format("woff"),
+    url("./../webfonts/Inter-Regular.ttf") format("ttf");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/*---------------------------------------- 
+# Definition of Custom Variables in root
+# Pseudo Class 
+------------------------------------------*/
+:root {
+  --bg-color: rgb(211, 234, 255);
+  --main-color: rgb(254, 148, 61);
+  --h1-color: rgb(48, 77, 121);
+}
+/*----------------------------------------- 
+# General Styles 
+------------------------------------------*/
+::selection {
+  background-color: var(--main-color);
+  color: white;
+}
+body {
+  background-color: var(--bg-color);
+  font-size: 1rem;
+  font-family: "Inter Regular";
+}
+h1 {
+  font-family: "Inter Bold";
+  font-size: 2.5rem;
+  position: relative;
+  color: var(--h1-color);
+}
+h2 {
+  font-family: "Poppins Semi Bold";
+  font-size: 1.5625rem;
+}
+.form-floating > .form-control:not(:placeholder-shown) {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+/*----------------------------------------- 
+# Product Registration Form Section Styles
+------------------------------------------*/
+#product-registration-form .container > div {
+  background-color: rgb(228, 243, 255);
+}
+#product-registration-form .container > div .btn-add-custom {
+  --bs-btn-color: white;
+  --bs-btn-bg: var(--main-color);
+  --bs-btn-border-color: var(--main-color);
+  --bs-btn-hover-color: white;
+  --bs-btn-hover-bg: rgb(228, 137, 62);
+  --bs-btn-hover-border-color: rgb(228, 137, 62);
+}
+#product-registration-form .container > div .btn-add-custom:disabled {
+  --bs-btn-disabled-color: white;
+  --bs-btn-disabled-bg: rgb(228, 137, 62);
+  --bs-btn-disabled-border-color: rgb(228, 137, 62);
+}
+#product-registration-form .container > div .btn-add-custom:active {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+#product-registration-form .container > div textarea {
+  min-height: 7.5rem;
+  height: 7.5rem;
+}
+/*----------------------------------------- 
+# Product Gallery Section Styles
+------------------------------------------*/
+#product-gallery .card-header span {
+  max-width: 5rem;
+  width: 5rem;
+}
+#product-gallery .card-product-name {
+  font-family: "Poppins Bold";
+}
+#product-gallery .category-bg-custom {
+  background-color: var(--main-color) !important;
+}
+#product-gallery article {
+  transition: 0.5s transform;
+}
+#product-gallery article:hover {
+  transform: scale(1.07);
+}
+#product-gallery article p {
+  font-size: 0.875rem;
+}
+#product-gallery article figure img {
+  aspect-ratio: 1 / 1;
+  object-fit: fill;
+}
+#product-gallery #no-produuct-msg {
+  font-family: "Inter Bold";
+}
