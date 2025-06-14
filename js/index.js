@@ -552,18 +552,18 @@ function validateFormInputField(inputField) {
       );
     } else {
       if (inputField.type === "file") {
-        inputField.nextElementSibling.nextElementSibling.classList.replace(
-          "d-block",
-          "d-none"
-        );
-      }
-      if (!imageSizeExceeded) {
-        inputField.nextElementSibling.nextElementSibling.nextElementSibling
-          ? inputField.nextElementSibling.nextElementSibling.nextElementSibling.classList.replace(
-              "d-block",
-              "d-none"
-            )
-          : imageSizeExceeded;
+        if (imageUploded) {
+          inputField.nextElementSibling.nextElementSibling.classList.replace(
+            "d-block",
+            "d-none"
+          );
+        }
+        if (!imageSizeExceeded) {
+          inputField.nextElementSibling.nextElementSibling.nextElementSibling.classList.replace(
+            "d-block",
+            "d-none"
+          );
+        }
       }
       inputField.nextElementSibling.classList.replace("d-none", "d-block");
     }
