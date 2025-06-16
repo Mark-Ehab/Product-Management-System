@@ -116,13 +116,28 @@ function sortListOfProductsBasedOnPrice(listOfProducts) {
 -----------------------------------------------------------------------------*/
 function addProduct() {
   /* Variables declarations and definition */
+  var imageFileDetails = null;
   var product = {
     productName: formInputFields.productNameInputField.value,
     productPrice: formInputFields.productPriceInputField.value,
     productCategory: formInputFields.productCategoryInputField.value,
     productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
+    productImageName: formInputFields.productImageInputField.files[0].name,
+    productImageType: formInputFields.productImageInputField.files[0].type,
     productDescription: formInputFields.productDescriptionTextareaField.value,
   };
+
+  /* Create new instance of FileReader */
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+    imageFileDetails = event.target.result;
+    product.productImageDetails = imageFileDetails;
+  };
+
+  /* Convert file details into string */
+  reader.readAsText(formInputFields.productImageInputField.files[0]);
+
   /* Push new product to the registered products list */
   productsList.push(product);
 }
@@ -322,6 +337,25 @@ function editProduct(productIndex) {
   formInputFields.productDescriptionTextareaField.value =
     productsList[productIndex].productDescription;
 
+  /* Create new instance of File */
+  const myFile = new File(
+    [productsList[productIndex].productImageDetails],
+    `${productsList[productIndex].productImageName}`,
+    {
+      type: productsList[productIndex].productImageType,
+    }
+  );
+
+  /* Create new instance of DataTransfer */
+  const dataTransfer = new DataTransfer();
+  dataTransfer.items.add(myFile);
+
+  /* Assign dataTransfer to files property of image input tag */
+  formInputFields.productImageInputField.files = dataTransfer.files;
+
+  /* Validate all form input fields */
+  validateFormInputFields();
+
   /* Show update product button instead of add product button */
   displayElement("add-btn", hideElement);
   displayElement("update-btn", showElement);
@@ -344,25 +378,30 @@ function editProduct(productIndex) {
 -----------------------------------------------------------------------------*/
 function saveUpdates() {
   /* Variables declarations and definition */
+  var imageFileDetails = null;
   var productIndex = null;
   var product = {
     productName: formInputFields.productNameInputField.value,
     productPrice: formInputFields.productPriceInputField.value,
     productCategory: formInputFields.productCategoryInputField.value,
+    productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
+    productImageName: formInputFields.productImageInputField.files[0].name,
+    productImageType: formInputFields.productImageInputField.files[0].type,
     productDescription: formInputFields.productDescriptionTextareaField.value,
   };
 
   /* Get index value of product to be updated from custom attribute on update button */
   productIndex = updateBtn.getAttribute("product-update-idx");
 
-  /* Check if image changed or not */
-  product.productImage = `./../images/products/${
-    formInputFields.productImageInputField.files[0]
-      ? formInputFields.productImageInputField.files[0].name
-      : productsList[productIndex].productImage.slice(
-          productsList[productIndex].productImage.lastIndexOf("/") + 1
-        )
-  }`;
+  /* Create new instance of FileReader */
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    imageFileDetails = event.target.result;
+    product.productImageDetails = imageFileDetails;
+  };
+
+  /* Convert file details into string */
+  reader.readAsText(formInputFields.productImageInputField.files[0]);
 
   /* Update product on list */
   productsList[productIndex] = product;
