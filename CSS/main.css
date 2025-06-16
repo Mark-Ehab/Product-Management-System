@@ -125,6 +125,7 @@ h2 {
 }
 #product-gallery article p {
   font-size: 0.875rem;
+  overflow-wrap: break-word;
 }
 #product-gallery article figure img {
   aspect-ratio: 1 / 1;
