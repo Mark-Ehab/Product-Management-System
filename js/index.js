@@ -115,31 +115,32 @@ function sortListOfProductsBasedOnPrice(listOfProducts) {
 # return type: void
 -----------------------------------------------------------------------------*/
 function addProduct() {
-  /* Variables declarations and definition */
-  var imageFileDetails = null;
-  var product = {
-    productName: formInputFields.productNameInputField.value,
-    productPrice: formInputFields.productPriceInputField.value,
-    productCategory: formInputFields.productCategoryInputField.value,
-    productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
-    productImageName: formInputFields.productImageInputField.files[0].name,
-    productImageType: formInputFields.productImageInputField.files[0].type,
-    productDescription: formInputFields.productDescriptionTextareaField.value,
-  };
+  return new Promise((resolve) => {
+    /* Variables declarations and definition */
+    var product = {
+      productName: formInputFields.productNameInputField.value,
+      productPrice: formInputFields.productPriceInputField.value,
+      productCategory: formInputFields.productCategoryInputField.value,
+      productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
+      productImageName: formInputFields.productImageInputField.files[0].name,
+      productImageType: formInputFields.productImageInputField.files[0].type,
+      productDescription: formInputFields.productDescriptionTextareaField.value,
+    };
 
-  /* Create new instance of FileReader */
-  const reader = new FileReader();
+    /* Create new instance of FileReader */
+    const reader = new FileReader();
 
-  reader.onload = function (event) {
-    imageFileDetails = event.target.result;
-    product.productImageDetails = imageFileDetails;
-  };
+    /* Convert file details into string */
+    reader.readAsText(formInputFields.productImageInputField.files[0]);
 
-  /* Convert file details into string */
-  reader.readAsText(formInputFields.productImageInputField.files[0]);
-
-  /* Push new product to the registered products list */
-  productsList.push(product);
+    reader.onload = function (event) {
+      /* Assingn returned result to productImageDetails property of product to be added */
+      product.productImageDetails = event.target.result;
+      /* Push new product to the registered products list */
+      productsList.push(product);
+      resolve();
+    };
+  });
 }
 
 /*-----------------------------------------------------------------------------
@@ -259,11 +260,13 @@ function deleteProduct(productIndex) {
 #------------------------------------------------------------------------------
 # @params: void
 #------------------------------------------------------------------------------
-# return type: void
+# return type: Promise (Object)
 -----------------------------------------------------------------------------*/
-function createProduct() {
+async function createProduct() {
   /* Add new product after submission */
-  addProduct();
+  await addProduct();
+
+  console.log("Hi");
 
   /* Sort the list of products after list update */
   productsList = sortListOfProductsBasedOnPrice(productsList);
@@ -374,37 +377,39 @@ function editProduct(productIndex) {
 #------------------------------------------------------------------------------
 # @params: void
 #------------------------------------------------------------------------------
-# return type: void
+# return type: Promise (Object)
 -----------------------------------------------------------------------------*/
 function saveUpdates() {
-  /* Variables declarations and definition */
-  var imageFileDetails = null;
-  var productIndex = null;
-  var product = {
-    productName: formInputFields.productNameInputField.value,
-    productPrice: formInputFields.productPriceInputField.value,
-    productCategory: formInputFields.productCategoryInputField.value,
-    productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
-    productImageName: formInputFields.productImageInputField.files[0].name,
-    productImageType: formInputFields.productImageInputField.files[0].type,
-    productDescription: formInputFields.productDescriptionTextareaField.value,
-  };
+  return new Promise((resolve) => {
+    /* Variables declarations and definition */
+    var productIndex = null;
+    var product = {
+      productName: formInputFields.productNameInputField.value,
+      productPrice: formInputFields.productPriceInputField.value,
+      productCategory: formInputFields.productCategoryInputField.value,
+      productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
+      productImageName: formInputFields.productImageInputField.files[0].name,
+      productImageType: formInputFields.productImageInputField.files[0].type,
+      productDescription: formInputFields.productDescriptionTextareaField.value,
+    };
 
-  /* Get index value of product to be updated from custom attribute on update button */
-  productIndex = updateBtn.getAttribute("product-update-idx");
+    /* Get index value of product to be updated from custom attribute on update button */
+    productIndex = updateBtn.getAttribute("product-update-idx");
 
-  /* Create new instance of FileReader */
-  const reader = new FileReader();
-  reader.onload = function (event) {
-    imageFileDetails = event.target.result;
-    product.productImageDetails = imageFileDetails;
-  };
+    /* Create new instance of FileReader */
+    const reader = new FileReader();
 
-  /* Convert file details into string */
-  reader.readAsText(formInputFields.productImageInputField.files[0]);
+    /* Convert file details into string */
+    reader.readAsText(formInputFields.productImageInputField.files[0]);
 
-  /* Update product on list */
-  productsList[productIndex] = product;
+    reader.onload = function (event) {
+      /* Assingn returned result to productImageDetails property of product to be updated */
+      product.productImageDetails = event.target.result;
+      /* Update product on list */
+      productsList[productIndex] = product;
+      resolve();
+    };
+  });
 }
 
 /*-----------------------------------------------------------------------------
@@ -416,9 +421,9 @@ function saveUpdates() {
 #------------------------------------------------------------------------------
 # return type: void
 -----------------------------------------------------------------------------*/
-function updateProduct() {
+async function updateProduct() {
   /* Save Updates */
-  saveUpdates();
+  await saveUpdates();
 
   /* Sort the list of products after list update (if needed) */
   productsList = sortListOfProductsBasedOnPrice(productsList);
