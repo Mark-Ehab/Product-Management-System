@@ -266,8 +266,6 @@ async function createProduct() {
   /* Add new product after submission */
   await addProduct();
 
-  console.log("Hi");
-
   /* Sort the list of products after list update */
   productsList = sortListOfProductsBasedOnPrice(productsList);
 
