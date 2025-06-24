@@ -278,8 +278,14 @@ async function createProduct() {
   /* Clear form input fields after submission */
   clearFormInputFields();
 
-  /* Display list of registered products after submission */
-  displayProducts(productsList);
+  /* Check if search input field has a search keyword value */
+  if (formInputFields.productSearchInputField.value) {
+    /* Invoke search function on this value to display matched result */
+    searchForElement(formInputFields.productSearchInputField.value);
+  } else {
+    /* Display list of registered products after submission */
+    displayProducts(productsList);
+  }
 
   /* Reset Input Validations */
   resetInputValidtions();
@@ -435,8 +441,14 @@ async function updateProduct() {
   /* Clear form input fields after submission */
   clearFormInputFields();
 
-  /* Display list of registered products after update */
-  displayProducts(productsList);
+  /* Check if search input field has a search keyword value */
+  if (formInputFields.productSearchInputField.value) {
+    /* Invoke search function on this value to display matched result */
+    searchForElement(formInputFields.productSearchInputField.value);
+  } else {
+    /* Display list of registered products after update */
+    displayProducts(productsList);
+  }
 
   /* Reset Input Validations */
   resetInputValidtions();
