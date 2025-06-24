@@ -78,6 +78,12 @@ h2 {
 }
 
 /*----------------------------------------- 
+# Main Section Styles
+------------------------------------------*/
+#main-section {
+  max-width: 60.25rem;
+}
+/*----------------------------------------- 
 # Product Registration Form Section Styles
 ------------------------------------------*/
 #product-registration-form .container > div {
