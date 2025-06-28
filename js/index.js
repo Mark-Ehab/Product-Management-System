@@ -802,9 +802,15 @@ function base64ToBlob(base64String, blobType) {
 # App Entry Point
 ----------------------------------------*/
 
-/* Display previously added products if any from local storage */
+/* Check if there are any products stored in local storage */
 if (getFromLocalStorage(listOfProductsKey)) {
+  /* Get products stored in local storage */
   productsList = parseStringToObject(getFromLocalStorage(listOfProductsKey));
+  /* Remove any product name highlighted substrings caused by search (if any) */
+  for (var counter = 0; counter < productsList.length; counter++) {
+    productsList[counter].productHighlightedName = "";
+  }
+  /* Display previously added products if any from local storage */
   displayProducts(productsList);
 } else {
   /* Display "No Products to Display" message */
