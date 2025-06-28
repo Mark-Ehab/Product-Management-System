@@ -773,6 +773,8 @@ function searchForElement(searchInputFieldValue) {
     for (var counter = 0; counter < productsList.length; counter++) {
       productsList[counter].productHighlightedName = "";
     }
+    /* Update Local Storage */
+    updateLocalStorage(listOfProductsKey, productsList);
     /* Display list of registered products */
     displayProducts(productsList);
   }
