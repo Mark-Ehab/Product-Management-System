@@ -121,7 +121,6 @@ function addProduct() {
       productName: formInputFields.productNameInputField.value,
       productPrice: formInputFields.productPriceInputField.value,
       productCategory: formInputFields.productCategoryInputField.value,
-      productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
       productImageName: formInputFields.productImageInputField.files[0].name,
       productImageType: formInputFields.productImageInputField.files[0].type,
       productDescription: formInputFields.productDescriptionTextareaField.value,
@@ -130,12 +129,12 @@ function addProduct() {
     /* Create new instance of FileReader */
     const reader = new FileReader();
 
-    /* Convert file details into string */
-    reader.readAsText(formInputFields.productImageInputField.files[0]);
+    /* Convert file details into base64 string */
+    reader.readAsDataURL(formInputFields.productImageInputField.files[0]);
 
     reader.onload = function (event) {
-      /* Assingn returned result to productImageDetails property of product to be added */
-      product.productImageDetails = event.target.result;
+      /* Assingn returned result to productImage property of product to be added */
+      product.productImage = event.target.result;
       /* Push new product to the registered products list */
       productsList.push(product);
       resolve();
@@ -346,7 +345,12 @@ function editProduct(productIndex) {
 
   /* Create new instance of File */
   const myFile = new File(
-    [productsList[productIndex].productImageDetails],
+    [
+      base64ToBlob(
+        productsList[productIndex].productImage.split(",")[1],
+        productsList[productIndex].productImageType
+      ),
+    ],
     `${productsList[productIndex].productImageName}`,
     {
       type: productsList[productIndex].productImageType,
@@ -391,7 +395,6 @@ function saveUpdates() {
       productName: formInputFields.productNameInputField.value,
       productPrice: formInputFields.productPriceInputField.value,
       productCategory: formInputFields.productCategoryInputField.value,
-      productImage: `./../images/products/${formInputFields.productImageInputField.files[0].name}`,
       productImageName: formInputFields.productImageInputField.files[0].name,
       productImageType: formInputFields.productImageInputField.files[0].type,
       productDescription: formInputFields.productDescriptionTextareaField.value,
@@ -403,12 +406,12 @@ function saveUpdates() {
     /* Create new instance of FileReader */
     const reader = new FileReader();
 
-    /* Convert file details into string */
-    reader.readAsText(formInputFields.productImageInputField.files[0]);
+    /* Convert file details into base64 string */
+    reader.readAsDataURL(formInputFields.productImageInputField.files[0]);
 
     reader.onload = function (event) {
-      /* Assingn returned result to productImageDetails property of product to be updated */
-      product.productImageDetails = event.target.result;
+      /* Assign returned result to productImage property of product to be updated */
+      product.productImage = event.target.result;
       /* Update product on list */
       productsList[productIndex] = product;
       resolve();
@@ -774,7 +777,25 @@ function searchForElement(searchInputFieldValue) {
     displayProducts(productsList);
   }
 }
+/*-----------------------------------------------------------------------------
+# Description: A fuction that converts base64 String to a Blob
+#------------------------------------------------------------------------------
+# @params: 
+# @param1: base64String (base64) --> base64 string to be converted to a Blob
+# @param2: fileType (String) --> Type of returned Blob
+#------------------------------------------------------------------------------
+# return type: void
+-----------------------------------------------------------------------------*/
+function base64ToBlob(base64String, blobType) {
+  const binaryString = atob(base64String);
+  const bytes = new Uint8Array(binaryString.length);
 
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  const blob = new Blob([bytes], { type: blobType });
+  return blob;
+}
 /*=======================================================================================*/
 
 /*--------------------------------------- 
