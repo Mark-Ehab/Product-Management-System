@@ -122,7 +122,7 @@ function addProduct() {
       displayedProductName:
         formInputFields.productNameInputField.value.length < 19
           ? formInputFields.productNameInputField.value
-          : formInputFields.productNameInputField.value.slice(0, 14) + " . . .",
+          : formInputFields.productNameInputField.value.slice(0, 13) + " . . .",
       productPrice: formInputFields.productPriceInputField.value,
       productCategory: formInputFields.productCategoryInputField.value,
       productImageName: formInputFields.productImageInputField.files[0].name,
@@ -405,7 +405,7 @@ function saveUpdates() {
       displayedProductName:
         formInputFields.productNameInputField.value.length < 19
           ? formInputFields.productNameInputField.value
-          : formInputFields.productNameInputField.value.slice(0, 14) + " . . .",
+          : formInputFields.productNameInputField.value.slice(0, 13) + " . . .",
       productPrice: formInputFields.productPriceInputField.value,
       productCategory: formInputFields.productCategoryInputField.value,
       productImageName: formInputFields.productImageInputField.files[0].name,
