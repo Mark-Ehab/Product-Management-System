@@ -119,6 +119,8 @@ h2 {
 }
 #product-gallery .card-product-name {
   font-family: "Poppins Bold";
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 #product-gallery .category-bg-custom {
   background-color: var(--main-color) !important;
@@ -131,7 +133,8 @@ h2 {
 }
 #product-gallery article p {
   font-size: 0.875rem;
-  overflow-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
 }
 #product-gallery article figure img {
   aspect-ratio: 1 / 1;

@@ -119,11 +119,20 @@ function addProduct() {
     /* Variables declarations and definition */
     var product = {
       productName: formInputFields.productNameInputField.value,
+      displayedProductName:
+        formInputFields.productNameInputField.value.length < 19
+          ? formInputFields.productNameInputField.value
+          : formInputFields.productNameInputField.value.slice(0, 14) + " . . .",
       productPrice: formInputFields.productPriceInputField.value,
       productCategory: formInputFields.productCategoryInputField.value,
       productImageName: formInputFields.productImageInputField.files[0].name,
       productImageType: formInputFields.productImageInputField.files[0].type,
       productDescription: formInputFields.productDescriptionTextareaField.value,
+      displayedProductDescription:
+        formInputFields.productDescriptionTextareaField.value.length < 49
+          ? formInputFields.productDescriptionTextareaField.value
+          : formInputFields.productDescriptionTextareaField.value.slice(0, 44) +
+            " ...",
     };
 
     /* Create new instance of FileReader */
@@ -198,10 +207,10 @@ function displayProducts(listOfProducts) {
                   >${
                     listOfProducts[counter].productHighlightedName
                       ? listOfProducts[counter].productHighlightedName
-                      : listOfProducts[counter].productName
+                      : listOfProducts[counter].displayedProductName
                   }</span
                 >
-                <p>${listOfProducts[counter].productDescription}</p>
+                <p>${listOfProducts[counter].displayedProductDescription}</p>
                 <div class="d-flex justify-content-between">
                   <button class="btn btn-outline-warning" onclick="editProduct(${
                     listOfProducts[counter].productIndex
@@ -393,11 +402,20 @@ function saveUpdates() {
     var productIndex = null;
     var product = {
       productName: formInputFields.productNameInputField.value,
+      displayedProductName:
+        formInputFields.productNameInputField.value.length < 19
+          ? formInputFields.productNameInputField.value
+          : formInputFields.productNameInputField.value.slice(0, 14) + " . . .",
       productPrice: formInputFields.productPriceInputField.value,
       productCategory: formInputFields.productCategoryInputField.value,
       productImageName: formInputFields.productImageInputField.files[0].name,
       productImageType: formInputFields.productImageInputField.files[0].type,
       productDescription: formInputFields.productDescriptionTextareaField.value,
+      displayedProductDescription:
+        formInputFields.productDescriptionTextareaField.value.length < 49
+          ? formInputFields.productDescriptionTextareaField.value
+          : formInputFields.productDescriptionTextareaField.value.slice(0, 40) +
+            " ...",
     };
 
     /* Get index value of product to be updated from custom attribute on update button */
