@@ -770,15 +770,28 @@ function searchForElement(searchInputFieldValue) {
     }
   } else {
     /* Remove any product name highlighted substrings caused by search (if any) */
-    for (var counter = 0; counter < productsList.length; counter++) {
-      productsList[counter].productHighlightedName = "";
-    }
+    removeAllHighlightedProductTitles();
     /* Update Local Storage */
     updateLocalStorage(listOfProductsKey, productsList);
     /* Display list of registered products */
     displayProducts(productsList);
   }
 }
+
+/*-----------------------------------------------------------------------------
+# Description: A fuction that removes all highlighted product titles could be 
+# caused by highlighted search (if any)
+#------------------------------------------------------------------------------
+# @params: void
+#------------------------------------------------------------------------------
+# return type: void
+-----------------------------------------------------------------------------*/
+function removeAllHighlightedProductTitles() {
+  for (var counter = 0; counter < productsList.length; counter++) {
+    productsList[counter].productHighlightedName = "";
+  }
+}
+
 /*-----------------------------------------------------------------------------
 # Description: A fuction that converts base64 String to a Blob
 #------------------------------------------------------------------------------
@@ -786,7 +799,7 @@ function searchForElement(searchInputFieldValue) {
 # @param1: base64String (base64) --> base64 string to be converted to a Blob
 # @param2: fileType (String) --> Type of returned Blob
 #------------------------------------------------------------------------------
-# return type: void
+# return type: Blob
 -----------------------------------------------------------------------------*/
 function base64ToBlob(base64String, blobType) {
   const binaryString = atob(base64String);
@@ -798,6 +811,7 @@ function base64ToBlob(base64String, blobType) {
   const blob = new Blob([bytes], { type: blobType });
   return blob;
 }
+
 /*=======================================================================================*/
 
 /*--------------------------------------- 
@@ -809,9 +823,7 @@ if (getFromLocalStorage(listOfProductsKey)) {
   /* Get products stored in local storage */
   productsList = parseStringToObject(getFromLocalStorage(listOfProductsKey));
   /* Remove any product name highlighted substrings caused by search (if any) */
-  for (var counter = 0; counter < productsList.length; counter++) {
-    productsList[counter].productHighlightedName = "";
-  }
+  removeAllHighlightedProductTitles();
   /* Display previously added products if any from local storage */
   displayProducts(productsList);
 } else {
